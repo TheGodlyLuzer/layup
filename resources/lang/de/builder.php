@@ -25,7 +25,7 @@ return [
     'add_row' => 'Zeile hinzufügen',
     'add_row_label' => 'Zeile hinzufügen',
     'choose_layout' => 'Layout auswählen:',
-    'drag_to_reorder' => 'Ziehen zum Neuanordnen',
+    'drag_to_reorder' => 'Ziehen um neu anzuordnen',
     'row_label' => 'Zeile :number',
     'add_column' => 'Spalte hinzufügen',
     'duplicate_row' => 'Zeile duplizieren',
@@ -49,7 +49,7 @@ return [
     // Widget-Auswahl
     'search_widgets' => 'Widgets suchen...',
     'recently_used' => 'Kürzlich verwendet',
-    'no_widgets_match' => 'Keine Widgets entsprechen Ihrer Suche.',
+    'no_widgets_match' => 'Keine Widgets gefunden',
 
     // Leerer Zustand
     'empty_state' => 'Noch keine Zeilen. Klicken Sie auf <strong>+ Zeile hinzufügen</strong>, um zu beginnen.',

@@ -45,7 +45,7 @@ return [
     ],
 
     'cookie_consent' => [
-        'privacy_policy' => 'Datenschutzrichtlinie',
+        'privacy_policy' => 'Datenschutzerklärung',
         'accept' => 'Akzeptieren',
     ],
 

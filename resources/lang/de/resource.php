@@ -34,7 +34,7 @@ return [
     'export' => 'Exportieren',
     'import' => 'Importieren',
     'publish' => 'Veröffentlichen',
-    'unpublish' => 'Zurückziehen',
+    'unpublish' => 'Nicht veröffentlicht',
     'json_file' => 'JSON-Datei',
     'copy_suffix' => '(Kopie)',
 

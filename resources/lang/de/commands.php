@@ -21,7 +21,7 @@ return [
     // MakeWidget
     'widget_exists' => 'Widget-Klasse existiert bereits: :path',
     'widget_created' => 'Widget-Klasse erstellt: :path',
-    'blade_created' => 'Blade-Ansicht erstellt: :path',
+    'blade_created' => 'Blade-View erstellt: :path',
 
     // Audit
     'audit_report' => 'Layup-Auditbericht',

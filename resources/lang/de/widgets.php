@@ -38,7 +38,7 @@ return [
         'content-toggle' => 'Inhaltsumschalter',
         'cookie-consent' => 'Cookie-Einwilligung',
         'countdown' => 'Countdown-Timer',
-        'cta' => 'Handlungsaufforderung',
+        'cta' => 'Call To Action',
         'cta-banner' => 'CTA-Banner',
         'divider' => 'Trennlinie',
         'embed' => 'Einbettung',
@@ -144,15 +144,15 @@ return [
         // Designfelder
         'text_color' => 'Textfarbe',
         'text_alignment' => 'Textausrichtung',
-        'font_size' => 'Schriftgrösse',
-        'border_radius' => 'Eckenradius',
+        'font_size' => 'Schriftgröße',
+        'border_radius' => 'Rahmenradius',
         'border_width' => 'Rahmenbreite',
         'border_style' => 'Rahmenstil',
         'border_color' => 'Rahmenfarbe',
         'box_shadow' => 'Schatten',
         'opacity' => 'Deckkraft',
         'padding' => 'Innenabstand',
-        'margin' => 'Aussenabstand',
+        'margin' => 'Außenabstand',
         'background_color' => 'Hintergrundfarbe',
 
         // SpacingPicker
@@ -171,7 +171,7 @@ return [
         'justify' => 'Blocksatz',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
         'full' => 'Voll',
 
         // Schriftgrössenoptionen
@@ -195,7 +195,7 @@ return [
         'shadow_xs' => 'XS',
         'shadow_small' => 'Klein',
         'shadow_medium' => 'Mittel',
-        'shadow_large' => 'Gross',
+        'shadow_large' => 'Groß',
         'shadow_xl' => 'XL',
         'shadow_2xl' => '2XL',
 
@@ -210,11 +210,11 @@ return [
         'inline_css' => 'Inline-CSS',
         'inline_css_placeholder' => 'z.B. border: 1px solid red;',
         'hide_on' => 'Ausblenden auf',
-        'hide_on_helper' => 'Dieses Element auf ausgewählten Bildschirmgrössen ausblenden',
+        'hide_on_helper' => 'Dieses Element auf ausgewählten Bildschirmgrößen ausblenden',
         'mobile' => 'Mobil',
         'tablet' => 'Tablet',
         'desktop' => 'Desktop',
-        'large_desktop' => 'Grosser Desktop',
+        'large_desktop' => 'Großer Desktop',
         'entrance_animation' => 'Eingangsanimation',
         'animation_duration' => 'Animationsdauer',
 
@@ -249,9 +249,9 @@ return [
         'start' => 'Anfang',
         'center' => 'Mitte',
         'end' => 'Ende',
-        'space_between' => 'Gleichmässig verteilt',
+        'space_between' => 'Gleichmäßig verteilt',
         'space_around' => 'Abstand rundherum',
-        'space_evenly' => 'Gleichmässiger Abstand',
+        'space_evenly' => 'Gleichmäßiger Abstand',
         'align_items' => 'Elemente ausrichten',
         'stretch' => 'Strecken',
         'baseline' => 'Grundlinie',
@@ -320,14 +320,14 @@ return [
         'items' => 'Einträge',
         'title' => 'Titel',
         'content' => 'Inhalt',
-        'open_first_item_by_default' => 'Ersten Eintrag standardmässig öffnen',
+        'open_first_item_by_default' => 'Ersten Eintrag standardmäßig öffnen',
     ],
 
     'alert' => [
         'type' => 'Typ',
         'title' => 'Titel',
         'content' => 'Inhalt',
-        'dismissible' => 'Schliessbar',
+        'dismissible' => 'Schließbar',
         'info' => 'Info',
         'success' => 'Erfolg',
         'warning' => 'Warnung',
@@ -364,7 +364,7 @@ return [
         'artist' => 'Künstler',
         'audio_file' => 'Audiodatei',
         'or_audio_url' => 'Oder Audio-URL',
-        'cover_art' => 'Coverkunst',
+        'cover_art' => 'Cover Art',
         'direct_link_to_an_audio_file_used_if_no_file_is_up' => 'Direktlink zu einer Audiodatei. Wird verwendet, wenn keine Datei hochgeladen wurde.',
     ],
 
@@ -372,31 +372,31 @@ return [
         'avatars' => 'Avatare',
         'extra_count_e_g_12' => 'Zusätzliche Anzahl (z.B. "+12")',
         'label' => 'Beschriftung',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         '12' => '+12',
-        'join_1_200_users' => 'Schliessen Sie sich 1.200+ Nutzern an',
+        'join_1_200_users' => 'Schließen Sie sich 1.200+ Nutzern an',
         'small_32px' => 'Klein (32px)',
         'medium_40px' => 'Mittel (40px)',
-        'large_48px' => 'Gross (48px)',
+        'large_48px' => 'Groß (48px)',
     ],
 
     'back-to-top' => [
         'background_color' => 'Hintergrundfarbe',
         'icon_color' => 'Symbolfarbe',
         'position' => 'Position',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'show_after_scroll_px' => 'Anzeigen nach Scrollen (px)',
         'bottom_right' => 'Unten rechts',
         'bottom_left' => 'Unten links',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'badge' => [
         'text' => 'Text',
         'variant' => 'Variante',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'link_url' => 'Link-URL',
         'default' => 'Standard',
         'success' => 'Erfolg',
@@ -406,7 +406,7 @@ return [
         'dark' => 'Dunkel',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'banner' => [
@@ -421,7 +421,7 @@ return [
         'auto' => 'Automatisch',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'bar-counter' => [
@@ -453,7 +453,7 @@ return [
         'author_name' => '-- Autorenname',
         'book_article_speech' => 'Buch, Artikel, Rede...',
         'left_border' => 'Linker Rand',
-        'large_quote' => 'Grosses Zitat',
+        'large_quote' => 'Großes Zitat',
         'centered' => 'Zentriert',
     ],
 
@@ -509,7 +509,7 @@ return [
         'calculator' => 'Taschenrechner',
         'receipt' => 'Quittung',
         'user' => 'Benutzer',
-        'users' => 'Benutzer',
+        'users' => 'Mehrere Benutzer',
         'user_group' => 'Benutzergruppe',
         'heart' => 'Herz',
         'thumbs_up' => 'Daumen hoch',
@@ -546,7 +546,7 @@ return [
         'map_pin' => 'Kartennadel',
         'map' => 'Karte',
         'home' => 'Zuhause',
-        'truck' => 'Lastwagen',
+        'truck' => 'LKW',
         'paper_airplane' => 'Papierflieger',
         'clock' => 'Uhr',
         'calendar' => 'Kalender',
@@ -586,7 +586,7 @@ return [
         'button_text' => 'Schaltflächentext',
         'url' => 'URL',
         'style' => 'Stil',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'open_in_new_tab' => 'In neuem Tab öffnen',
         'custom_background_color' => 'Benutzerdefinierte Hintergrundfarbe',
         'custom_text_color' => 'Benutzerdefinierte Textfarbe',
@@ -598,7 +598,7 @@ return [
         'ghost' => 'Transparent',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'card' => [
@@ -742,7 +742,7 @@ return [
         'compact' => 'Kompakt',
         'normal' => 'Normal',
         'relaxed' => 'Entspannt',
-        'spacious' => 'Grosszügig',
+        'spacious' => 'Großzügig',
     ],
 
     'embed' => [
@@ -800,7 +800,7 @@ return [
         'description' => 'Beschreibung',
         'file' => 'Datei',
         'button_text' => 'Schaltflächentext',
-        'file_size_display' => 'Dateigrösse (Anzeige)',
+        'file_size_display' => 'Dateigröße (Anzeige)',
         '2_4_mb' => '2,4 MB',
     ],
 
@@ -819,7 +819,7 @@ return [
         'vertical' => 'Vertikal',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'gallery' => [
@@ -839,7 +839,7 @@ return [
         'extra_small' => 'Sehr klein',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'gradient-text' => [
@@ -925,13 +925,13 @@ return [
     'icon' => [
         'icon_name' => 'Symbolname',
         'color' => 'Farbe',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'link_url' => 'Link-URL',
         'e_g_heroicon_o_heart' => 'z.B. heroicon-o-heart',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
-        'extra_large' => 'Sehr gross',
+        'large' => 'Groß',
+        'extra_large' => 'Sehr groß',
         'huge' => 'Riesig',
     ],
 
@@ -1038,8 +1038,8 @@ return [
         '6' => '6',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
-        'extra_large' => 'Sehr gross',
+        'large' => 'Groß',
+        'extra_large' => 'Sehr groß',
     ],
 
     'logo-slider' => [
@@ -1061,7 +1061,7 @@ return [
         'tiny' => 'Winzig',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
         'full_width' => 'Volle Breite',
     ],
 
@@ -1075,13 +1075,13 @@ return [
         'paste_a_google_maps_or_other_embed_iframe_override' => 'Google Maps- oder anderen Einbettungs-iframe einfügen. Überschreibt die Adresse, falls gesetzt.',
         'small_200px' => 'Klein (200px)',
         'medium_300px' => 'Mittel (300px)',
-        'large_400px' => 'Gross (400px)',
-        'extra_large_500px' => 'Sehr gross (500px)',
+        'large_400px' => 'Groß (400px)',
+        'extra_large_500px' => 'Sehr groß (500px)',
         'city' => 'Stadt',
         'neighborhood' => 'Stadtviertel',
-        'street' => 'Strasse',
+        'street' => 'Straße',
         'building' => 'Gebäude',
-        'roadmap' => 'Strassenkarte',
+        'roadmap' => 'Straßenkarte',
         'satellite' => 'Satellit',
         'terrain' => 'Gelände',
         'hybrid' => 'Hybrid',
@@ -1112,7 +1112,7 @@ return [
         'extra_small' => 'Sehr klein',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'menu' => [
@@ -1152,12 +1152,12 @@ return [
         'trigger_button_text' => 'Auslöser-Schaltflächentext',
         'modal_title' => 'Modal-Titel',
         'modal_content' => 'Modal-Inhalt',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'trigger_button_color' => 'Auslöser-Schaltflächenfarbe',
         'small_400px' => 'Klein (400px)',
         'medium_600px' => 'Mittel (600px)',
-        'large_800px' => 'Gross (800px)',
-        'extra_large_1000px' => 'Sehr gross (1000px)',
+        'large_800px' => 'Groß (800px)',
+        'extra_large_1000px' => 'Sehr groß (1000px)',
     ],
 
     'newsletter' => [
@@ -1180,7 +1180,7 @@ return [
         'link_url' => 'Link-URL',
         'background_color' => 'Hintergrundfarbe',
         'text_color' => 'Textfarbe',
-        'dismissible' => 'Schliessbar',
+        'dismissible' => 'Schließbar',
         'learn_more' => 'Mehr erfahren',
     ],
 
@@ -1231,14 +1231,14 @@ return [
         'period' => 'Zeitraum',
         'original_price_strikethrough' => 'Originalpreis (durchgestrichen)',
         'label' => 'Beschriftung',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         '49' => '49',
         'month' => '/Monat',
         'starting_at' => 'Ab',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
-        'extra_large' => 'Sehr gross',
+        'large' => 'Groß',
+        'extra_large' => 'Sehr groß',
     ],
 
     'pricing-table' => [
@@ -1283,7 +1283,7 @@ return [
         'percentage' => 'Prozentsatz',
         'title' => 'Titel',
         'circle_color' => 'Kreisfarbe',
-        'size_px' => 'Grösse (px)',
+        'size_px' => 'Größe (px)',
         'stroke_width_px' => 'Strichbreite (px)',
         'animate_on_scroll' => 'Beim Scrollen animieren',
     ],
@@ -1303,11 +1303,11 @@ return [
         'placeholder_text' => 'Platzhaltertext',
         'form_action_url' => 'Formularaktion-URL',
         'query_parameter' => 'Abfrageparameter',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'where_the_search_form_submits_to' => 'Wohin das Suchformular gesendet wird',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'section-heading' => [
@@ -1342,8 +1342,8 @@ return [
         '100' => '100%',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
-        'extra_large' => 'Sehr gross',
+        'large' => 'Groß',
+        'extra_large' => 'Sehr groß',
     ],
 
     'share-buttons' => [
@@ -1394,7 +1394,7 @@ return [
         'url' => 'URL',
         'style' => 'Stil',
         'open_in_new_tab' => 'In neuem Tab öffnen',
-        'icon_size' => 'Symbolgrösse',
+        'icon_size' => 'Symbolgröße',
         'facebook' => 'Facebook',
         'x_twitter' => 'X / Twitter',
         'instagram' => 'Instagram',
@@ -1410,7 +1410,7 @@ return [
         'text_only' => 'Nur Text',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'social-proof' => [
@@ -1426,8 +1426,8 @@ return [
         'extra_small_1rem' => 'Sehr klein (1rem)',
         'small_2rem' => 'Klein (2rem)',
         'medium_3rem' => 'Mittel (3rem)',
-        'large_4rem' => 'Gross (4rem)',
-        'extra_large_6rem' => 'Sehr gross (6rem)',
+        'large_4rem' => 'Groß (4rem)',
+        'extra_large_6rem' => 'Sehr groß (6rem)',
         'huge_8rem' => 'Riesig (8rem)',
     ],
 
@@ -1435,7 +1435,7 @@ return [
         'rating' => 'Bewertung',
         'max_stars' => 'Maximale Sterne',
         'label' => 'Beschriftung',
-        'size' => 'Grösse',
+        'size' => 'Größe',
         'star_color' => 'Sternefarbe',
         'e_g_4_8_out_of_5' => 'z.B. 4,8 von 5',
         '' => '½',
@@ -1451,7 +1451,7 @@ return [
         '10' => '10',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'stat-card' => [
@@ -1491,7 +1491,7 @@ return [
 
     'table-of-contents' => [
         'title' => 'Titel',
-        'heading_levels_to_include' => 'Einzuschliessende Überschriftenebenen',
+        'heading_levels_to_include' => 'Einzuschließende Überschriftenebenen',
         'numbered_list' => 'Nummerierte Liste',
         'collapsible' => 'Einklappbar',
         'sticky_position' => 'Fixierte Position',
@@ -1599,7 +1599,7 @@ return [
         '4' => '4',
         'small' => 'Klein',
         'medium' => 'Mittel',
-        'large' => 'Gross',
+        'large' => 'Groß',
     ],
 
     'timeline' => [
@@ -1613,7 +1613,7 @@ return [
     'toggle' => [
         'title' => 'Titel',
         'content' => 'Inhalt',
-        'open_by_default' => 'Standardmässig geöffnet',
+        'open_by_default' => 'Standardmäßig geöffnet',
     ],
 
     'typewriter' => [
