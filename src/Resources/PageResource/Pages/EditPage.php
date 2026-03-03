@@ -68,7 +68,7 @@ class EditPage extends EditRecord
                 ->icon('heroicon-o-document-duplicate')
                 ->color('gray')
                 ->schema([
-                   TextInput::make('template_name')
+                    TextInput::make('template_name')
                         ->label(__('layup::resource.template_name'))
                         ->required()
                         ->default(fn (): string => $this->record->title . ' Template'),
