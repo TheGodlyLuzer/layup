@@ -12,8 +12,10 @@ use Crumbls\Layup\View\Column;
 use Crumbls\Layup\View\Row;
 use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Str;
 
 class EditPage extends EditRecord
@@ -22,7 +24,7 @@ class EditPage extends EditRecord
 
     protected string $view = 'layup::livewire.page-builder';
 
-    protected \Filament\Support\Enums\Width|string|null $maxContentWidth = 'full';
+    protected Width|string|null $maxContentWidth = 'full';
 
     /** @var array Excluded from Filament's form hydration via */
     public array $pageContent = [];
@@ -65,12 +67,12 @@ class EditPage extends EditRecord
                 ->label(__('layup::resource.save_as_template'))
                 ->icon('heroicon-o-document-duplicate')
                 ->color('gray')
-                ->form([
-                    \Filament\Forms\Components\TextInput::make('template_name')
+                ->schema([
+                   TextInput::make('template_name')
                         ->label(__('layup::resource.template_name'))
                         ->required()
                         ->default(fn (): string => $this->record->title . ' Template'),
-                    \Filament\Forms\Components\TextInput::make('template_description')
+                    TextInput::make('template_description')
                         ->label(__('layup::resource.description'))
                         ->nullable(),
                 ])
@@ -539,7 +541,7 @@ class EditPage extends EditRecord
             ->label(__('layup::resource.row_settings'))
             ->slideOver()
             ->fillForm(fn (): array => $this->rowSettings)
-            ->form(Row::getFormSchema())
+            ->schema(Row::getFormSchema())
             ->action(function (array $data): void {
                 $this->refreshContent();
                 $this->pageContent['rows'] = collect($this->pageContent['rows'])->map(function (array $row) use ($data): array {
@@ -582,7 +584,7 @@ class EditPage extends EditRecord
             ->label(__('layup::resource.column_settings'))
             ->slideOver()
             ->fillForm(fn (): array => $this->columnSettings)
-            ->form(Column::getFormSchema())
+            ->schema(Column::getFormSchema())
             ->action(function (array $data): void {
                 $this->refreshContent();
                 $this->pageContent['rows'] = collect($this->pageContent['rows'])->map(function (array $row) use ($data): array {
@@ -693,7 +695,7 @@ class EditPage extends EditRecord
             ->label(__('layup::resource.edit_widget'))
             ->slideOver()
             ->fillForm(fn (): array => $this->widgetData)
-            ->form(fn () => $registry->getFormSchema($this->editingWidgetType ?? 'text'))
+            ->schema(fn () => $registry->getFormSchema($this->editingWidgetType ?? 'text'))
             ->action(function (array $data): void {
                 $this->refreshContent();
                 $registry = app(WidgetRegistry::class);
