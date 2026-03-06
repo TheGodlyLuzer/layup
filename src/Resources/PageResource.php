@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Crumbls\Layup\Resources;
 
 use BackedEnum;
+use Crumbls\Layup\Forms\Components\LayupBuilder;
 use Crumbls\Layup\Models\Page;
 use Crumbls\Layup\Resources\PageResource\Pages;
 use Crumbls\Layup\Support\PageTemplate;
@@ -107,6 +108,10 @@ class PageResource extends Resource
                             ->label(__('layup::resource.meta_keywords')),
                     ])
                     ->collapsed(),
+
+	            LayupBuilder::make('content')
+		            ->hiddenLabel(true)
+	                ->columnSpanFull(),
             ]);
     }
 

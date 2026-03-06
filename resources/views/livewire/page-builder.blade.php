@@ -2,6 +2,7 @@
     <div
         wire:ignore
         x-data="layupBuilder({
+            state: '{{ $getStatePath() }}',
             content: @js($pageContent),
             breakpoints: @js($this->breakpoints),
             defaultBreakpoint: @js($this->defaultBreakpoint),
@@ -125,6 +126,7 @@
                                     <span class="lyp-row-label" x-text="translations.row_label.replace(':number', rowIndex + 1)"></span>
                                 </div>
                                 <div class="lyp-actions">
+
                                     <button @click.stop="$wire.addColumn(row.id)" class="lyp-action-btn" title="{{ __('layup::builder.add_column') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                                     </button>
@@ -375,6 +377,7 @@
     @script
     <script>
         Alpine.data('layupBuilder', (config) => ({
+            state: config.state,
             content: config.content,
             breakpoints: config.breakpoints,
             currentBreakpoint: config.defaultBreakpoint,
