@@ -117,7 +117,7 @@ trait HandlesRows
 
     #[Renderless]
     #[ExposedLivewireMethod]
-    public function rowAdd(mixed $columns = [12], int $position = 0): array
+    public function rowAdd(mixed $columns = [12], ?int $position = 0): array
     {
         // callSchemaComponentMethod may pass a JSON string or a single int
         if (is_string($columns)) {

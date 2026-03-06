@@ -9,11 +9,11 @@
                 state: $wire.$entangle(@js($getStatePath())),
                 statePath: @js($getStatePath()),
                 content: @js($getState()),
-                breakpoints: @js($this->breakpoints),
-                defaultBreakpoint: @js($this->defaultBreakpoint),
-                rowTemplates: @js($this->rowTemplates),
-                widgetRegistry: @js($this->widgetRegistry),
-                translations: @js($this->translations),
+                breakpoints: @js($breakpoints),
+                defaultBreakpoint: @js($defaultBreakpoint),
+                rowTemplates: @js($rowTemplates),
+                widgetRegistry: @js($widgetRegistry),
+                translations: @js($translations),
                 geocode: function() {
                 console.log('tf');
                 }
@@ -437,6 +437,14 @@
                 maxHistory: 50,
 
                 init() {
+                    if (!(this.content && typeof this.content === 'object')) {
+                        this.content = {};
+                    }
+
+                    if (!(this.content.rows && typeof this.content.rows === 'object')) {
+                        this.content.rows = [];
+                    }
+
                     this.history = [JSON.parse(JSON.stringify(this.content))];
                     this.historyIndex = 0;
 
@@ -621,17 +629,24 @@
                         schema = [schema];
                     }
 
+                    if (isNaN(position)) {
+                        position = 0;
+                    }
+
                     $wire.callSchemaComponentMethod('{{ $getKey() }}', 'rowAdd', {columns: schema, position: position})
                         .then(function (response) {
                             if (typeof response != 'object') {
                                 return;
                             }
+
                             if (typeof response.id != 'string') {
                                 return;
                             }
 
-                            $self.content.rows = $self.content.rows ?? [];
+                            $self.content.rows = typeof $self.content.rows == 'object' ? $self.content.rows : [];
                             $self.content.rows.splice(response.order, 0, response);
+
+
                             $self.pushHistory();
                         });
                 },

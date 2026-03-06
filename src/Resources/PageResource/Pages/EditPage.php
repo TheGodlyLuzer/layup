@@ -119,39 +119,4 @@ class EditPage extends EditRecord
 
     // ─── Properties for Alpine ───────────────────────────────
 
-    public function getWidgetRegistryProperty(): array
-    {
-        return app(WidgetRegistry::class)->toJs();
-    }
-
-    public function getBreakpointsProperty(): array
-    {
-        return config('layup.breakpoints', []);
-    }
-
-    public function getRowTemplatesProperty(): array
-    {
-        return config('layup.row_templates', []);
-    }
-
-    public function getDefaultBreakpointProperty(): string
-    {
-        return config('layup.default_breakpoint', 'lg');
-    }
-
-    public function getTranslationsProperty(): array
-    {
-        return [
-            'saving' => __('layup::builder.saving'),
-            'saved' => __('layup::builder.saved'),
-            'row_label' => __('layup::builder.row_label'),
-            'categories' => [
-                'content' => __('layup::widgets.categories.content'),
-                'media' => __('layup::widgets.categories.media'),
-                'interactive' => __('layup::widgets.categories.interactive'),
-                'layout' => __('layup::widgets.categories.layout'),
-                'advanced' => __('layup::widgets.categories.advanced'),
-            ],
-        ];
-    }
 }
