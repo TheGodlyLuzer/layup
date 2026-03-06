@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Crumbls\Layup\Resources\PageResource\Pages;
 
 use Crumbls\Layup\Resources\PageResource;
-use Crumbls\Layup\Support\ContentValidator;
 use Crumbls\Layup\Support\PageTemplate;
 use Crumbls\Layup\Support\WidgetRegistry;
-use Crumbls\Layup\View\Column;
 use Crumbls\Layup\View\Row;
 use Filament\Actions;
 use Filament\Actions\Action;
@@ -16,13 +14,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Support\Enums\Width;
-use Illuminate\Support\Str;
 
 class EditPage extends EditRecord
 {
     protected static string $resource = PageResource::class;
 
-//    protected string $view = 'layup::livewire.page-builder';
+    //    protected string $view = 'layup::livewire.page-builder';
 
     protected Width|string|null $maxContentWidth = 'full';
 
@@ -119,9 +116,6 @@ class EditPage extends EditRecord
     }
 
     // ─── Row Operations ──────────────────────────────────────
-
-
-
 
     // ─── Properties for Alpine ───────────────────────────────
 

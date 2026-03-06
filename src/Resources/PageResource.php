@@ -109,9 +109,9 @@ class PageResource extends Resource
                     ])
                     ->collapsed(),
 
-	            LayupBuilder::make('content')
-		            ->hiddenLabel(true)
-	                ->columnSpanFull(),
+                LayupBuilder::make('content')
+                    ->hiddenLabel(true)
+                    ->columnSpanFull(),
             ]);
     }
 
