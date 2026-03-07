@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Crumbls\Layup\Support;
 
 use Crumbls\Layup\Contracts\Widget;
+use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
 
 class WidgetRegistry
 {
     /** @var array<string, class-string<Widget>> */
     protected array $widgets = [];
+
+    /** @var string|null Cached fingerprint of currently registered widgets. */
+    protected ?string $fingerprint = null;
 
     /**
      * Register a widget class. Must implement the Widget contract.
@@ -24,6 +28,7 @@ class WidgetRegistry
         }
 
         $this->widgets[$widgetClass::getType()] = $widgetClass;
+        $this->fingerprint = null;
 
         return $this;
     }
@@ -34,6 +39,7 @@ class WidgetRegistry
     public function unregister(string $type): static
     {
         unset($this->widgets[$type]);
+        $this->fingerprint = null;
 
         return $this;
     }
@@ -64,13 +70,20 @@ class WidgetRegistry
 
     /**
      * Return widget metadata for the Alpine.js builder.
+     *
+     * Results are cached using a fingerprint of the registered widget types,
+     * so the cache auto-invalidates whenever widgets are added or removed.
      */
     public function toJs(): array
     {
-        return collect($this->widgets)
-            ->map(fn (string $class) => $class::toArray())
-            ->values()
-            ->all();
+        return Cache::remember(
+            "layup.widget-js.{$this->getFingerprint()}",
+            3600,
+            fn (): array => collect($this->widgets)
+                ->map(fn (string $class) => $class::toArray())
+                ->values()
+                ->all(),
+        );
     }
 
     /**
@@ -136,11 +149,48 @@ class WidgetRegistry
 
     /**
      * Get all widget types grouped by category.
+     *
+     * Results are cached using the same fingerprint strategy as toJs().
      */
     public function grouped(): array
     {
-        return collect($this->widgets)
-            ->mapToGroups(fn (string $class, string $type): array => [$class::getCategory() => $class::toArray()])
-            ->all();
+        return Cache::remember(
+            "layup.widget-grouped.{$this->getFingerprint()}",
+            3600,
+            fn (): array => collect($this->widgets)
+                ->mapToGroups(fn (string $class, string $type): array => [$class::getCategory() => $class::toArray()])
+                ->all(),
+        );
+    }
+
+    /**
+     * Generate a fingerprint of the currently registered widgets.
+     *
+     * The fingerprint changes whenever widgets are registered or unregistered,
+     * which naturally invalidates any cache entries keyed on the old fingerprint.
+     * Stale cache entries are left to expire on their own TTL.
+     */
+    public function getFingerprint(): string
+    {
+        if ($this->fingerprint === null) {
+            $types = array_keys($this->widgets);
+            sort($types);
+            $this->fingerprint = md5(implode(',', $types));
+        }
+
+        return $this->fingerprint;
+    }
+
+    /**
+     * Explicitly clear all cached widget metadata.
+     *
+     * Not typically needed since the fingerprint strategy handles invalidation
+     * automatically, but useful for commands or deployment scripts.
+     */
+    public function clearCache(): void
+    {
+        Cache::forget("layup.widget-js.{$this->getFingerprint()}");
+        Cache::forget("layup.widget-grouped.{$this->getFingerprint()}");
+        $this->fingerprint = null;
     }
 }
