@@ -2,7 +2,6 @@
     :component="$getFieldWrapperView()"
     :field="$field"
 >
-
 <div
                 wire:ignore
                 x-data="layupBuilder({
