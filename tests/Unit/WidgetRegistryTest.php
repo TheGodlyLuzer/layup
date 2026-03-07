@@ -112,3 +112,64 @@ it('fireOnDelete() accepts optional WidgetContext', function (): void {
     $this->registry->fireOnDelete('text', ['content' => 'hi'], $ctx);
     expect(true)->toBeTrue();
 });
+
+it('getFingerprint() returns consistent hash for same widgets', function (): void {
+    $this->registry->register(TextWidget::class);
+    $this->registry->register(HeadingWidget::class);
+    $fp1 = $this->registry->getFingerprint();
+    $fp2 = $this->registry->getFingerprint();
+    expect($fp1)->toBe($fp2)->toBeString()->toHaveLength(32);
+});
+
+it('getFingerprint() changes when widgets are added', function (): void {
+    $this->registry->register(TextWidget::class);
+    $fp1 = $this->registry->getFingerprint();
+    $this->registry->register(HeadingWidget::class);
+    $fp2 = $this->registry->getFingerprint();
+    expect($fp1)->not->toBe($fp2);
+});
+
+it('getFingerprint() changes when widgets are removed', function (): void {
+    $this->registry->register(TextWidget::class);
+    $this->registry->register(HeadingWidget::class);
+    $fp1 = $this->registry->getFingerprint();
+    $this->registry->unregister('heading');
+    $fp2 = $this->registry->getFingerprint();
+    expect($fp1)->not->toBe($fp2);
+});
+
+it('getFingerprint() is order-independent', function (): void {
+    $reg1 = new WidgetRegistry;
+    $reg1->register(TextWidget::class);
+    $reg1->register(HeadingWidget::class);
+
+    $reg2 = new WidgetRegistry;
+    $reg2->register(HeadingWidget::class);
+    $reg2->register(TextWidget::class);
+
+    expect($reg1->getFingerprint())->toBe($reg2->getFingerprint());
+});
+
+it('toJs() returns cached results on repeated calls', function (): void {
+    $this->registry->register(TextWidget::class);
+    $first = $this->registry->toJs();
+    $second = $this->registry->toJs();
+    expect($first)->toBe($second);
+});
+
+it('grouped() returns cached results on repeated calls', function (): void {
+    $this->registry->register(TextWidget::class);
+    $this->registry->register(HeadingWidget::class);
+    $first = $this->registry->grouped();
+    $second = $this->registry->grouped();
+    expect($first)->toBe($second);
+});
+
+it('clearCache() resets fingerprint', function (): void {
+    $this->registry->register(TextWidget::class);
+    $fp1 = $this->registry->getFingerprint();
+    $this->registry->clearCache();
+    $fp2 = $this->registry->getFingerprint();
+    // Same widgets, so fingerprint regenerates to the same value
+    expect($fp1)->toBe($fp2);
+});
