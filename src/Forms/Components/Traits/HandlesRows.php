@@ -119,7 +119,6 @@ trait HandlesRows
     #[ExposedLivewireMethod]
     public function rowAdd(mixed $columns = [12], ?int $position = 0): array
     {
-        // callSchemaComponentMethod may pass a JSON string or a single int
         if (is_string($columns)) {
             $decoded = json_decode($columns, true);
             $columns = is_array($decoded) ? $decoded : [$columns];
@@ -157,7 +156,6 @@ trait HandlesRows
             $id = 'row_' . Str::random(8);
         } while (in_array($id, $existingIds));
 
-        // Clamp position
         $position = min($position, count($state['rows']));
 
         $row = [

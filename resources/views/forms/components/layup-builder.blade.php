@@ -634,7 +634,8 @@
 
                     $wire.callSchemaComponentMethod('{{ $getKey() }}', 'rowAdd', {columns: schema, position: position})
                         .then(function (response) {
-                            if (typeof response != 'object') {
+
+                            if (typeof response != 'object' || !response) {
                                 return;
                             }
 
