@@ -97,7 +97,7 @@ class PageResource extends Resource
                             ->default('draft')
                             ->required(),
                     ])
-	            ->columnSpanFull(),
+                    ->columnSpanFull(),
 
                 Section::make(__('layup::resource.seo'))
                     ->schema([
@@ -107,7 +107,7 @@ class PageResource extends Resource
                         TextInput::make('meta.keywords')
                             ->label(__('layup::resource.meta_keywords')),
                     ])
-	                ->hidden()
+                    ->hidden()
                     ->collapsed(),
 
                 LayupBuilder::make('content')

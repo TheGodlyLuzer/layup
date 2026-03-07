@@ -6,7 +6,6 @@ namespace Crumbls\Layup\Resources\PageResource\Pages;
 
 use Crumbls\Layup\Resources\PageResource;
 use Crumbls\Layup\Support\PageTemplate;
-use Crumbls\Layup\Support\WidgetRegistry;
 use Crumbls\Layup\View\Row;
 use Filament\Actions;
 use Filament\Actions\Action;
