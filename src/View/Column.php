@@ -69,10 +69,10 @@ class Column extends BaseView
                 ->tabs([
                     Tab::make(__('layup::widgets.shared.tab_design'))
                         ->icon('heroicon-o-paint-brush')
-                        ->schema(static::getDesignFormSchema()),
+                        ->schema(static::withLiveValidation(static::getDesignFormSchema())),
                     Tab::make(__('layup::widgets.shared.tab_advanced'))
                         ->icon('heroicon-o-cog-6-tooth')
-                        ->schema(static::getAdvancedFormSchema()),
+                        ->schema(static::withLiveValidation(static::getAdvancedFormSchema())),
                 ])
                 ->columnSpanFull(),
         ];

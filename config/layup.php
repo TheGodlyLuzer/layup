@@ -136,6 +136,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Uploads
+    |--------------------------------------------------------------------------
+    |
+    | Filesystem disk used for all FileUpload fields in the page builder.
+    | Defaults to 'public' so uploaded files are web-accessible via the
+    | storage symlink. Change to 's3' or another disk as needed.
+    |
+    */
+    'uploads' => [
+        'disk' => 'public',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Pages Configuration
     |--------------------------------------------------------------------------
     |

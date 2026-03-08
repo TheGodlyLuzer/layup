@@ -1,13 +1,23 @@
-<div @if(!empty($data['id']))id="{{ $data['id'] }}"@endif class="relative overflow-hidden rounded-lg {{ \Crumbls\Layup\View\BaseView::visibilityClasses($data['hide_on'] ?? []) }} {{ $data['class'] ?? '' }}" x-data="layupSlider({{ count($data['slides'] ?? []) }}, {{ ($data['autoplay'] ?? true) ? 'true' : 'false' }}, {{ $data['speed'] ?? 5000 }})" @if(!empty($data['inline_css']))style="{{ $data['inline_css'] }}"@endif>
-    <div class="relative" style="min-height:200px">
+<div @if(!empty($data['id']))id="{{ $data['id'] }}"@endif class="relative overflow-hidden {{ \Crumbls\Layup\View\BaseView::visibilityClasses($data['hide_on'] ?? []) }} {{ $data['class'] ?? '' }}" x-data="layupSlider({{ count($data['slides'] ?? []) }}, {{ ($data['autoplay'] ?? true) ? 'true' : 'false' }}, {{ $data['speed'] ?? 5000 }})" style="{{ \Crumbls\Layup\View\BaseView::buildInlineStyles($data) }}">
+    <div class="relative min-h-[200px]">
         @foreach(($data['slides'] ?? []) as $index => $slide)
-            <div x-show="isActive({{ $index }})" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="p-8 bg-gray-100 dark:bg-gray-800 rounded-lg" @if(!empty($slide['image'])) style="background-image:url('{{ asset('storage/' . $slide['image']) }}');background-size:cover;background-position:center" @endif>
-                <div class="max-w-2xl mx-auto text-center">
+            <div
+                x-show="isActive({{ $index }})"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                class="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800"
+                :class="isActive({{ $index }}) ? '' : 'pointer-events-none'"
+                @if(!empty($slide['image']))
+                    style="background-image:url('{{ asset('storage/' . $slide['image']) }}');background-size:cover;background-position:center"
+                @endif
+            >
+                <div class="max-w-2xl mx-auto text-center p-8">
                     @if(!empty($slide['heading']))
                         <h3 class="text-2xl font-bold mb-2">{{ $slide['heading'] }}</h3>
                     @endif
                     @if(!empty($slide['content']))
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $slide['content'] }}</p>
+                        <div class="prose dark:prose-invert mb-4">{!! $slide['content'] !!}</div>
                     @endif
                     @if(!empty($slide['button_text']))
                         <a href="{{ $slide['button_url'] ?? '#' }}" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">{{ $slide['button_text'] }}</a>
