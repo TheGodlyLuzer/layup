@@ -7,9 +7,11 @@ namespace Crumbls\Layup\View;
 use Crumbls\Layup\Forms\Components\SpacingPicker;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Field;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Component as SchemaComponent;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Contracts\View\View;
@@ -109,7 +111,7 @@ abstract class BaseView extends Component
      */
     public static function getFormSchema(): array
     {
-        return [
+        return static::withUploadDisk([
             Tabs::make('settings')
                 ->tabs([
                     Tab::make(__('layup::widgets.shared.tab_content'))
@@ -123,7 +125,7 @@ abstract class BaseView extends Component
                         ->schema(static::withLiveValidation(static::getAdvancedFormSchema())),
                 ])
                 ->columnSpanFull(),
-        ];
+        ]);
     }
 
     /**
@@ -143,6 +145,54 @@ abstract class BaseView extends Component
         }
 
         return $components;
+    }
+
+    /**
+     * Recursively set the configured upload disk on all FileUpload
+     * components in a schema array. This ensures files are stored on
+     * a publicly accessible disk regardless of Filament's default.
+     *
+     * @param  array<SchemaComponent>  $components
+     * @return array<SchemaComponent>
+     */
+    protected static function withUploadDisk(array $components): array
+    {
+        $disk = config('layup.uploads.disk', 'public');
+
+        static::walkComponents($components, function (SchemaComponent $component) use ($disk): void {
+            if ($component instanceof FileUpload) {
+                $component->disk($disk);
+            }
+        });
+
+        return $components;
+    }
+
+    /**
+     * Recursively walk all components and their children.
+     * Uses reflection to access the raw child array, avoiding
+     * getChildComponents() which requires a mounted container.
+     *
+     * @param  array<SchemaComponent>  $components
+     */
+    protected static function walkComponents(array $components, \Closure $callback): void
+    {
+        foreach ($components as $component) {
+            $callback($component);
+
+            try {
+                $ref = new \ReflectionProperty($component, 'childComponents');
+                $children = $ref->getValue($component);
+
+                foreach ($children as $group) {
+                    if (is_array($group)) {
+                        static::walkComponents($group, $callback);
+                    }
+                }
+            } catch (\ReflectionException) {
+                // Component has no childComponents property -- skip.
+            }
+        }
     }
 
     /**
