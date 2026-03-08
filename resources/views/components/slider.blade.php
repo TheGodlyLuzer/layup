@@ -1,8 +1,18 @@
 <div @if(!empty($data['id']))id="{{ $data['id'] }}"@endif class="relative overflow-hidden {{ \Crumbls\Layup\View\BaseView::visibilityClasses($data['hide_on'] ?? []) }} {{ $data['class'] ?? '' }}" x-data="layupSlider({{ count($data['slides'] ?? []) }}, {{ ($data['autoplay'] ?? true) ? 'true' : 'false' }}, {{ $data['speed'] ?? 5000 }})" style="{{ \Crumbls\Layup\View\BaseView::buildInlineStyles($data) }}">
-    <div class="relative" style="min-height:200px">
+    <div class="relative min-h-[200px]">
         @foreach(($data['slides'] ?? []) as $index => $slide)
-            <div x-show="isActive({{ $index }})" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="p-8 bg-gray-100 dark:bg-gray-800" @if(!empty($slide['image'])) style="background-image:url('{{ asset('storage/' . $slide['image']) }}');background-size:cover;background-position:center" @endif>
-                <div class="max-w-2xl mx-auto text-center">
+            <div
+                x-show="isActive({{ $index }})"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                class="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800"
+                :class="isActive({{ $index }}) ? '' : 'pointer-events-none'"
+                @if(!empty($slide['image']))
+                    style="background-image:url('{{ asset('storage/' . $slide['image']) }}');background-size:cover;background-position:center"
+                @endif
+            >
+                <div class="max-w-2xl mx-auto text-center p-8">
                     @if(!empty($slide['heading']))
                         <h3 class="text-2xl font-bold mb-2">{{ $slide['heading'] }}</h3>
                     @endif
