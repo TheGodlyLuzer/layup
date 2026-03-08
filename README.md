@@ -45,6 +45,21 @@ A visual page builder plugin for [Filament](https://filamentphp.com). Divi-style
 
 ## Installation
 
+### Prerequisites
+
+Layup requires a working Filament installation. If you haven't set up Filament yet, install it first:
+
+```bash
+composer require filament/filament
+php artisan filament:install --panels
+```
+
+This creates a panel provider at `app/Providers/Filament/AdminPanelProvider.php`. If you already have a Filament panel set up, skip this step.
+
+See the [Filament installation docs](https://filamentphp.com/docs/panels/installation) for details.
+
+### Install Layup
+
 **1. Require the package:**
 
 ```bash
@@ -60,6 +75,8 @@ php artisan migrate
 This creates the `layup_pages` and `layup_page_revisions` tables.
 
 **3. Register the plugin in your Filament panel provider:**
+
+Open your panel provider (e.g. `app/Providers/Filament/AdminPanelProvider.php`) and add the Layup plugin:
 
 ```php
 use Crumbls\Layup\LayupPlugin;
@@ -116,7 +133,23 @@ The `layout` value is passed to `<x-dynamic-component>`, so it should be a Blade
 - `'layouts.app'` → `resources/views/components/layouts/app.blade.php`
 - `'app-layout'` → `App\View\Components\AppLayout`
 
-Your layout must include `{{ $slot }}` where the page content should render.
+Your layout must accept a `title` slot and optionally a `meta` slot for SEO tags:
+
+```blade
+{{-- resources/views/components/layouts/app.blade.php --}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ $title ?? '' }}</title>
+    {{ $meta ?? '' }}
+    @layupScripts
+    @vite(['resources/css/app.css'])
+</head>
+<body>
+    {{ $slot }}
+</body>
+</html>
+```
 
 ### Nested Slugs
 
@@ -125,6 +158,193 @@ Pages support nested slugs via wildcard routing:
 ```
 /pages/about          → slug: about
 /pages/about/team     → slug: about/team
+```
+
+### Custom Controller
+
+Layup provides a base controller for frontend rendering:
+
+```
+AbstractController      → Base (returns any Eloquent Model)
+  └─ PageController     → Built-in slug-based lookup (ships with Layup)
+```
+
+Extend `AbstractController` to render any model that implements `getSectionTree()` and `getContentTree()`.
+
+**Scaffold a controller:**
+
+```bash
+php artisan layup:make-controller PageController
+```
+
+Or create one manually:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers;
+
+use Crumbls\Layup\Http\Controllers\AbstractController;
+use Crumbls\Layup\Models\Page;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
+class PageController extends AbstractController
+{
+    protected function getRecord(Request $request): Model
+    {
+        return Page::published()
+            ->where('slug', $request->route('slug'))
+            ->firstOrFail();
+    }
+}
+```
+
+Works with any model, not just Page:
+
+```php
+use App\Models\Post;
+
+class PostController extends AbstractController
+{
+    protected function getRecord(Request $request): Model
+    {
+        return Post::where('slug', $request->route('slug'))
+            ->firstOrFail();
+    }
+}
+```
+
+After creating your controller:
+
+1. Register the route in `routes/web.php`:
+
+    ```php
+    use App\Http\Controllers\PageController;
+
+    Route::get('/{slug}', PageController::class)->where('slug', '.*');
+    ```
+
+2. Disable the built-in routes in `config/layup.php`:
+
+    ```php
+    'frontend' => [
+        'enabled' => false,
+    ],
+    ```
+
+3. Set your layout component in `config/layup.php`:
+
+    ```php
+    'frontend' => [
+        'layout' => 'layouts.app',
+    ],
+    ```
+
+### Override Methods
+
+`AbstractController` provides these methods your IDE will autocomplete. Override any of them to customize behavior:
+
+| Method | Purpose | Default |
+|--------|---------|---------|
+| `getRecord(Request $request): Model` | **Required.** Resolve the model. | (abstract) |
+| `authorize(Request $request, Model $record): void` | Gate access. Throw/abort to deny. | No-op |
+| `getLayout(Request $request, Model $record): string` | Blade layout component name. | `config('layup.frontend.layout')` |
+| `getView(Request $request, Model $record): string` | Blade view to render. | `config('layup.frontend.view')` |
+| `getViewData(Request $request, Model $record, array $sections): array` | Extra variables merged into view data. | `[]` |
+| `getCacheTtl(Request $request, Model $record): ?int` | Seconds for `Cache-Control` header. `null` to skip. | `null` |
+
+Your `getRecord()` returns `Model`, so you can return `Page`, a custom subclass, or any model with the right methods.
+
+### View Variables
+
+The following variables are available in the rendered Blade view:
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `$page` | `Model` | The resolved record (also available as `$record`) |
+| `$record` | `Model` | Same as `$page` (alias for non-Page models) |
+| `$sections` | `array` | Section tree with hydrated Row/Column/Widget objects |
+| `$tree` | `array` | Flat list of Row objects (all sections merged) |
+| `$layout` | `string` | Layout component name |
+
+Plus any additional variables returned by `getViewData()`.
+
+### Example: Authorized Pages with Custom Layout
+
+```php
+class MemberPageController extends AbstractController
+{
+    protected function getRecord(Request $request): Model
+    {
+        return Page::published()
+            ->where('slug', $request->route('slug'))
+            ->firstOrFail();
+    }
+
+    protected function authorize(Request $request, Model $record): void
+    {
+        abort_unless($request->user(), 403);
+    }
+
+    protected function getLayout(Request $request, Model $record): string
+    {
+        return 'layouts.member-area';
+    }
+
+    protected function getViewData(Request $request, Model $record, array $sections): array
+    {
+        return [
+            'user' => $request->user(),
+        ];
+    }
+}
+```
+
+### Example: Cached Public Pages
+
+```php
+class CachedPageController extends AbstractController
+{
+    protected function getRecord(Request $request): Model
+    {
+        return Page::published()
+            ->where('slug', $request->route('slug'))
+            ->firstOrFail();
+    }
+
+    protected function getCacheTtl(Request $request, Model $record): ?int
+    {
+        return 300; // 5 minutes
+    }
+}
+```
+
+### Example: View Fallback Chain
+
+```php
+class ThemePageController extends AbstractController
+{
+    protected function getRecord(Request $request): Model
+    {
+        return Page::published()
+            ->where('slug', $request->route('slug'))
+            ->firstOrFail();
+    }
+
+    protected function getView(Request $request, Model $record): string
+    {
+        $slugView = 'pages.' . str_replace('/', '.', $record->slug);
+
+        if (view()->exists($slugView)) {
+            return $slugView;
+        }
+
+        return parent::getView($request, $record);
+    }
+}
 ```
 
 ## Tailwind CSS Integration
@@ -414,6 +634,18 @@ LayupPlugin::make()
         \Crumbls\Layup\View\SpacerWidget::class,
     ])
 ```
+
+## Artisan Commands
+
+| Command | Description |
+|---------|-------------|
+| `layup:make-controller {name}` | Scaffold a frontend controller extending AbstractController |
+| `layup:make-widget {name}` | Scaffold a custom widget (PHP class + Blade view) |
+| `layup:safelist` | Generate the Tailwind safelist file |
+| `layup:audit` | Audit page content for structural issues |
+| `layup:export` | Export pages as JSON files |
+| `layup:import` | Import pages from JSON files |
+| `layup:install` | Run the initial setup |
 
 ## Configuration Reference
 
