@@ -120,7 +120,7 @@ abstract class AbstractController extends Controller
      * Merged with the base data (`page`, `record`, `sections`, `tree`, `layout`).
      * Return an associative array of any extra variables.
      *
-     * @param array<int, array{settings: array<string, mixed>, rows: array<\Crumbls\Layup\View\Row>}> $sections
+     * @param  array<int, array{settings: array<string, mixed>, rows: array<\Crumbls\Layup\View\Row>}>  $sections
      * @return array<string, mixed>
      */
     protected function getViewData(Request $request, Model $record, array $sections): array

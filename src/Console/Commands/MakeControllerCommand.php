@@ -38,7 +38,7 @@ class MakeControllerCommand extends Command
 
         $this->newLine();
         $this->comment('Next steps:');
-        $this->line("  1. Register the route in routes/web.php:");
+        $this->line('  1. Register the route in routes/web.php:');
         $this->newLine();
         $this->line("     use App\\Http\\Controllers\\{$name};");
         $this->newLine();
@@ -46,11 +46,11 @@ class MakeControllerCommand extends Command
         $this->line("         ->where('slug', '.*')");
         $this->line("         ->name('pages.show');");
         $this->newLine();
-        $this->line("  2. Disable built-in routes in config/layup.php:");
+        $this->line('  2. Disable built-in routes in config/layup.php:');
         $this->newLine();
         $this->line("     'frontend' => ['enabled' => false]");
         $this->newLine();
-        $this->line("  3. Set your layout component in config/layup.php:");
+        $this->line('  3. Set your layout component in config/layup.php:');
         $this->newLine();
         $this->line("     'frontend' => ['layout' => 'layouts.app']");
 
