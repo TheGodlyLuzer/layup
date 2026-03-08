@@ -7,7 +7,7 @@
                         <h3 class="text-2xl font-bold mb-2">{{ $slide['heading'] }}</h3>
                     @endif
                     @if(!empty($slide['content']))
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $slide['content'] }}</p>
+                        <div class="prose dark:prose-invert mb-4">{!! $slide['content'] !!}</div>
                     @endif
                     @if(!empty($slide['button_text']))
                         <a href="{{ $slide['button_url'] ?? '#' }}" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">{{ $slide['button_text'] }}</a>
