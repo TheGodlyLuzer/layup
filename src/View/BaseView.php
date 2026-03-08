@@ -6,6 +6,7 @@ namespace Crumbls\Layup\View;
 
 use Crumbls\Layup\Forms\Components\SpacingPicker;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -113,16 +114,35 @@ abstract class BaseView extends Component
                 ->tabs([
                     Tab::make(__('layup::widgets.shared.tab_content'))
                         ->icon('heroicon-o-document-text')
-                        ->schema(static::getContentFormSchema()),
+                        ->schema(static::withLiveValidation(static::getContentFormSchema())),
                     Tab::make(__('layup::widgets.shared.tab_design'))
                         ->icon('heroicon-o-paint-brush')
-                        ->schema(static::getDesignFormSchema()),
+                        ->schema(static::withLiveValidation(static::getDesignFormSchema())),
                     Tab::make(__('layup::widgets.shared.tab_advanced'))
                         ->icon('heroicon-o-cog-6-tooth')
-                        ->schema(static::getAdvancedFormSchema()),
+                        ->schema(static::withLiveValidation(static::getAdvancedFormSchema())),
                 ])
                 ->columnSpanFull(),
         ];
+    }
+
+    /**
+     * Apply live-on-blur validation to all form fields in a schema array.
+     * This ensures validation errors appear immediately when the user
+     * leaves a field, rather than only on form submission.
+     *
+     * @param  array<\Filament\Schemas\Components\Component>  $components
+     * @return array<\Filament\Schemas\Components\Component>
+     */
+    protected static function withLiveValidation(array $components): array
+    {
+        foreach ($components as $component) {
+            if ($component instanceof Field) {
+                $component->live(onBlur: true);
+            }
+        }
+
+        return $components;
     }
 
     /**

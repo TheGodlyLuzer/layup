@@ -22,13 +22,13 @@ class Section extends BaseView
             Tabs::make('section_settings')
                 ->tabs([
                     Tabs\Tab::make(__('layup::widgets.shared.tab_content'))
-                        ->schema(static::getContentFormSchema())
+                        ->schema(static::withLiveValidation(static::getContentFormSchema()))
                         ->columns(2),
                     Tabs\Tab::make(__('layup::widgets.shared.tab_design'))
-                        ->schema(static::getDesignFormSchema())
+                        ->schema(static::withLiveValidation(static::getDesignFormSchema()))
                         ->columns(2),
                     Tabs\Tab::make(__('layup::widgets.shared.tab_advanced'))
-                        ->schema(static::getAdvancedFormSchema())
+                        ->schema(static::withLiveValidation(static::getAdvancedFormSchema()))
                         ->columns(2),
                 ]),
         ];
