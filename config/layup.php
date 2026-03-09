@@ -193,7 +193,7 @@ return [
         'prefix' => 'pages',
         'middleware' => ['web'],
         'domain' => null,
-        'layout' => 'latest-layout',
+        'layout' => 'layout',
         'view' => 'layup::frontend.page',
         'max_width' => 'container',
         'include_scripts' => true,
